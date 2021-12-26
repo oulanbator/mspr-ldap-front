@@ -1,0 +1,47 @@
+<mat-card class="login-card" [class.mat-elevation-z8]="true">
+  <!-- Title area -->
+  <mat-card-title class="login-card-title">Create new account</mat-card-title>
+  <mat-divider></mat-divider>
+
+  <!-- Content area -->
+  <mat-card-content class="login-card-content">
+    <form class="login-form">
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"/>
+        <mat-error *ngIf="emailFormControl.hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput [formControl]="usernameFormControl" [errorStateMatcher]="matcher"/>
+        <mat-error *ngIf="usernameFormControl.hasError('required')">
+          Username is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" [formControl]="passwordFormControl" [errorStateMatcher]="matcher"/>
+        <mat-error *ngIf="passwordFormControl.hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+
+  <!-- Actions area -->
+  <mat-card-actions align="end">
+    <button mat-stroked-button color="primary" [disabled]="!usernameFormControl.valid || !passwordFormControl.valid" (click)="signIn()">
+      Sign in
+    </button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,33 @@
+:host ::ng-deep .red-scheme {
+  /*color: #D4A291;*/
+  color: #F1E0DA;
+}
+:host ::ng-deep .blue-scheme {
+  color: #DEE1E6;
+}
+:host ::ng-deep  .yellow-scheme {
+  color: #F7EEDC;
+}
+:host ::ng-deep .green-scheme {
+  color: #DDE8D2;
+}
+:host ::ng-deep .dark-green-scheme {
+  color: #C3E4C0;
+}
+
+:host ::ng-deep .bg-red-scheme {
+  /*color: #D4A291;*/
+  background-color: #F1E0DA;
+}
+:host ::ng-deep .bg-blue-scheme {
+  background-color: #DEE1E6;
+}
+:host ::ng-deep  .bg-yellow-scheme {
+  background-color: #F7EEDC;
+}
+:host ::ng-deep .bg-green-scheme {
+  background-color: #DDE8D2;
+}
+:host ::ng-deep .bg-dark-green-scheme {
+  background-color: #C3E4C0;
+}

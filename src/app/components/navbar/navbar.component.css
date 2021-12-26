@@ -1,0 +1,7 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.logout-button {
+  padding-right: 20px;
+}

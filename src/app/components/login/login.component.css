@@ -1,0 +1,20 @@
+.login-card {
+  margin: 10% auto auto;
+  width: 400px;
+  padding: 30px;
+}
+.login-card-title {
+  text-align: center;
+}
+.login-card-content {
+  padding: 30px 0px;
+}
+.full-width {
+  width: 100%;
+}
+mat-card-footer {
+  text-align: center;
+}
+.caption {
+  font-style: italic;
+}
