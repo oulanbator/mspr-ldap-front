@@ -9,7 +9,9 @@
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Email</mat-label>
-        <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"/>
+        <input matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" (focusout)="checkEmail()"/>
+        <mat-icon matSuffix *ngIf="emailAvailable" color="primary">done</mat-icon>
+        <mat-icon matSuffix *ngIf="emailError" color="warn">warning</mat-icon>
         <mat-error *ngIf="emailFormControl.hasError('required')">
           Email is <strong>required</strong>
         </mat-error>
@@ -20,11 +22,14 @@
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Username</mat-label>
-        <input matInput [formControl]="usernameFormControl" [errorStateMatcher]="matcher"/>
+        <input matInput [formControl]="usernameFormControl" [errorStateMatcher]="matcher" (focusout)="checkUsername()"/>
+        <mat-icon matSuffix *ngIf="usernameAvailable" color="primary">done</mat-icon>
+        <mat-icon matSuffix *ngIf="usernameError" color="warn">warning</mat-icon>
         <mat-error *ngIf="usernameFormControl.hasError('required')">
           Username is <strong>required</strong>
         </mat-error>
       </mat-form-field>
+
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>Password</mat-label>
@@ -44,4 +49,10 @@
       Sign in
     </button>
   </mat-card-actions>
+
+  <!-- Footer area -->
+  <mat-card-footer>
+    <span class="caption">Already signed in ? go to </span>
+    <a [routerLink]="['/login']" class="caption">login page</a>
+  </mat-card-footer>
 </mat-card>

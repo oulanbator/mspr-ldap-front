@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from "../../services/user.service";
 import {Router} from "@angular/router";
+import {Constants} from "../../utils/constants";
 
 @Component({
   selector: 'app-navbar',
@@ -18,8 +19,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.userService.logout().subscribe(response => {
       this.userService.authenticated = false;
-      sessionStorage.setItem('token', '');
-      console.log(response);
+      sessionStorage.setItem(Constants.LOCAL_STORAGE_TOKEN, '');
       this.router.navigate(['/login']);
     });
   }

@@ -4,10 +4,12 @@
 
 export const environment = {
   production: false,
-  apiUrlAuthenticate: 'http://localhost:8080/authenticate',
-  apiUrlCheckAuth: 'http://localhost:8080/check-auth',
-  apiUrlLogout: 'http://localhost:8080/logout',
-  apiUrlRegister: 'http://localhost:8080/register'
+  apiUrlAuthenticate: "http://localhost:8080/authenticate",
+  apiUrlCheckAuth: "http://localhost:8080/check-auth",
+  apiUrlLogout: "http://localhost:8080/logout",
+  apiUrlRegister: "http://localhost:8080/register",
+  apiUrlEmailAvailable: "http://localhost:8080/email-available",
+  apiUrlUsernameAvailable: "http://localhost:8080/username-available"
 };
 
 /*

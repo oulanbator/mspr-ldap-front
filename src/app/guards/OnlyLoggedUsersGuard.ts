@@ -13,7 +13,6 @@ export class OnlyLoggedUsersGuard implements CanActivate {
   }
 
   canActivate() {
-    console.log("OnlyLoggedUsersGuard");
     if (this.userService.isAuthenticated()) {
       // if already authenticated
       return true;

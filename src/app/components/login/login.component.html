@@ -25,6 +25,8 @@
 
     </form>
   </mat-card-content>
+
+  <mat-error *ngIf="error">{{errorMessage}}</mat-error>
   <mat-divider></mat-divider>
 
   <!-- Actions area -->
@@ -37,7 +39,7 @@
     </button>
   </mat-card-actions>
 
-  <!-- Actions area -->
+  <!-- Footer area -->
   <mat-card-footer>
 <!--    <a [routerLink]="['/register']">Forgot password</a>-->
     <span class="caption">Forgot password - </span>

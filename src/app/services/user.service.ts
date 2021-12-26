@@ -9,6 +9,9 @@ import {catchError} from "rxjs/operators";
 import {of} from "rxjs";
 import {Router} from "@angular/router";
 import {RegistrationRequest} from "../models/http/RegistrationRequest";
+import {SimpleStringRequest} from "../models/http/SimpleStringRequest";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {Constants} from "../utils/constants";
 
 @Injectable({
   providedIn: 'root'
@@ -18,25 +21,20 @@ export class UserService implements OnInit {
   urlCheckAuth: string = environment.apiUrlCheckAuth;
   urlLogout: string = environment.apiUrlLogout;
   urlRegister: string = environment.apiUrlRegister;
+  urlEmailAvailable: string = environment.apiUrlEmailAvailable;
+  private urlUsernameAvailable: string = environment.apiUrlUsernameAvailable;
 
   authenticated: boolean = false;
 
-  token = sessionStorage.getItem('token');
+  token = sessionStorage.getItem(Constants.LOCAL_STORAGE_TOKEN);
   headers = new HttpHeaders({
     "Authorization": "Bearer " + this.token,
     "Content-Type": "application/json"
   })
 
-  constructor(private http: HttpClient, private router: Router) {
-    this.checkAuth().subscribe(data => {
-      if (typeof data != 'string') {
-        this.authenticated = data.response;
-        this.router.navigate(['/home']);
-
-      } else {
-        console.log(data);
-      }
-    });
+  constructor(private http: HttpClient,
+              private router: Router,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -53,9 +51,7 @@ export class UserService implements OnInit {
   }
 
   checkAuth() {
-    return this.http.get<BooleanResponse>(this.urlCheckAuth, {headers: this.headers}).pipe(
-      catchError(err => of("Could not find user session"))
-    );
+    return this.http.get<BooleanResponse>(this.urlCheckAuth, {headers: this.headers});
   }
 
   logout() {
@@ -63,8 +59,14 @@ export class UserService implements OnInit {
   }
 
   register(userDetails: RegistrationRequest) {
-    // TODO : delete this line when everything ok
-    console.log("payload : " + JSON.stringify(userDetails));
     return this.http.post<MessageResponse>(this.urlRegister, userDetails);
+  }
+
+  checkEmailAvailable(email: SimpleStringRequest) {
+    return this.http.post<MessageResponse>(this.urlEmailAvailable, email);
+  }
+
+  checkUsernameAvailable(username: SimpleStringRequest) {
+    return this.http.post<MessageResponse>(this.urlUsernameAvailable, username);
   }
 }
