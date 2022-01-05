@@ -1,10 +1,10 @@
-<mat-card class="login-card" [class.mat-elevation-z8]="true">
+<mat-card class="centered-card" [class.mat-elevation-z8]="true" *ngIf="!twoFactorEnabled">
   <!-- Title area -->
-  <mat-card-title class="login-card-title">Login</mat-card-title>
+  <mat-card-title class="centered-card-title">Login</mat-card-title>
   <mat-divider></mat-divider>
 
   <!-- Content area -->
-  <mat-card-content class="login-card-content">
+  <mat-card-content class="centered-card-content">
     <form class="login-form">
 
       <mat-form-field class="full-width" appearance="fill">
@@ -26,7 +26,6 @@
     </form>
   </mat-card-content>
 
-  <mat-error *ngIf="error">{{errorMessage}}</mat-error>
   <mat-divider></mat-divider>
 
   <!-- Actions area -->
@@ -45,4 +44,38 @@
     <span class="caption">Forgot password - </span>
     <a [routerLink]="['/register']" class="caption">Create account</a>
   </mat-card-footer>
+</mat-card>
+
+
+<!--TWO FACTORS CARD-->
+<mat-card class="centered-card" [class.mat-elevation-z8]="true" *ngIf="twoFactorEnabled">
+  <!-- Title area -->
+  <mat-card-title class="centered-card-title">Two factors authentication</mat-card-title>
+  <mat-card-subtitle>Enter your PIN</mat-card-subtitle>
+  <mat-divider></mat-divider>
+
+  <!-- Content area -->
+  <mat-card-content class="centered-card-content">
+    <form class="login-form">
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Two factors PIN</mat-label>
+        <input matInput [formControl]="totpFormControl" [errorStateMatcher]="matcher"/>
+        <mat-error *ngIf="totpFormControl.hasError('required')">
+          Your PIN is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </mat-card-content>
+
+  <!-- Actions area -->
+  <mat-card-actions align="end">
+    <button mat-stroked-button
+            color="primary"
+            [disabled]="!totpFormControl.valid"
+            (click)="login()">
+      Login
+    </button>
+  </mat-card-actions>
 </mat-card>

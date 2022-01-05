@@ -1,12 +1,12 @@
-.login-card {
+.centered-card {
   margin: 10% auto auto;
   width: 400px;
   padding: 30px;
 }
-.login-card-title {
+.centered-card-title {
   text-align: center;
 }
-.login-card-content {
+.centered-card-content {
   padding: 30px 0px;
 }
 .full-width {

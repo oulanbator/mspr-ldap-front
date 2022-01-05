@@ -1,0 +1,47 @@
+<!-- ACCOUNT NOT VERIFIED -->
+<mat-card [class.mat-elevation-z8]="true" class="centered-card" *ngIf="!accountVerified">
+  <div class="mat-display-3">Verify your account</div>
+
+  <p class="mat-title">
+    We sent you a confirmation email, please follow the provided link.
+  </p>
+
+  <mat-divider></mat-divider>
+
+  <div *ngIf="twoFactors">
+    <mat-icon class="warning-icon" color="warn">warning</mat-icon>
+    <p class="mat-title">
+       One-time message
+    </p>
+    <p class="mat-subheading-2">Two factors authentication activated on your account</p>
+    <p>
+      Please enter the following secret to your Google Authenticator App : <br><br>
+      <strong>{{secret}}</strong>
+    </p>
+    <p>
+      Or flash the following code : <br><br>
+      <img src="{{qrCodeUrl}}" alt="Two factors QR BarCode" />
+    </p>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-actions align="end">
+    <button mat-stroked-button>Send a new email !</button>
+    <button mat-stroked-button (click)="navLogin()">Login</button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- ACCOUNT VERIFIED -->
+<mat-card [class.mat-elevation-z8]="true" class="centered-card" *ngIf="accountVerified">
+  <div class="mat-display-3">Congratulations !</div>
+
+  <p class="mat-title">
+    Your account has been verified successfully ! <br>
+    You'll be redirected to login in {{secondsRemaining}} seconds...
+  </p>
+  <mat-divider></mat-divider>
+  <mat-card-actions align="end">
+    <button mat-stroked-button (click)="navLogin()">Login</button>
+  </mat-card-actions>
+</mat-card>

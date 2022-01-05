@@ -1,10 +1,10 @@
-<mat-card class="login-card" [class.mat-elevation-z8]="true">
+<mat-card class="centered-card" [class.mat-elevation-z8]="true">
   <!-- Title area -->
-  <mat-card-title class="login-card-title">Create new account</mat-card-title>
+  <mat-card-title class="centered-card-title">Create new account</mat-card-title>
   <mat-divider></mat-divider>
 
   <!-- Content area -->
-  <mat-card-content class="login-card-content">
+  <mat-card-content class="centered-card-content">
     <form class="login-form">
 
       <mat-form-field class="full-width" appearance="fill">
@@ -39,14 +39,24 @@
         </mat-error>
       </mat-form-field>
 
+      <mat-checkbox class="example-margin" [formControl]="twoFactorsFormControl">
+        Activate 2 factors authentication
+      </mat-checkbox>
+
     </form>
   </mat-card-content>
   <mat-divider></mat-divider>
 
   <!-- Actions area -->
   <mat-card-actions align="end">
-    <button mat-stroked-button color="primary" [disabled]="!usernameFormControl.valid || !passwordFormControl.valid" (click)="signIn()">
-      Sign in
+    <button mat-stroked-button color="primary"
+            class="sign-in-button"
+            [disabled]="!usernameFormControl.valid || !passwordFormControl.valid || loading"
+            (click)="signIn()">
+      <span *ngIf="!loading">Sign in</span>
+      <mat-icon *ngIf="loading">
+        <mat-spinner diameter="20"></mat-spinner>
+      </mat-icon>
     </button>
   </mat-card-actions>
 

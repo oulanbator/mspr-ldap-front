@@ -5,11 +5,13 @@ import {RouterModule} from "@angular/router";
 import {RegisterComponent} from "./components/register/register.component";
 import {HomeComponent} from "./components/home/home.component";
 import {OnlyLoggedUsersGuard} from "./guards/OnlyLoggedUsersGuard";
-import {IsSignedInGuard} from "./guards/IsSignedInGuard";
+import {NoLoggedUsersGuard} from "./guards/NoLoggedUsersGuard";
+import {ConfirmRegistrationComponent} from "./components/confirm-registration/confirm-registration.component";
 
 const routes = [
-  { path: 'login', component: LoginComponent, canActivate: [IsSignedInGuard]},
+  { path: 'login', component: LoginComponent, canActivate: [NoLoggedUsersGuard]},
   { path: 'register', component: RegisterComponent },
+  { path: 'confirm-registration', component: ConfirmRegistrationComponent},
   {
     path: 'home',
     component: HomeComponent,
