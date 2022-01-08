@@ -17,10 +17,8 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this.userService.logout().subscribe(response => {
-      this.userService.authenticated = false;
-      sessionStorage.setItem(Constants.LOCAL_STORAGE_TOKEN, '');
-      this.router.navigate(['/login']);
-    });
+    this.userService.authenticated = false;
+    sessionStorage.setItem(Constants.LOCAL_STORAGE_TOKEN, '');
+    this.router.navigate(['/login']);
   }
 }

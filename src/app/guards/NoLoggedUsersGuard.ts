@@ -3,7 +3,6 @@ import {Injectable} from "@angular/core";
 import {UserService} from "../services/user.service";
 import {Observable, of} from "rxjs";
 import {catchError, map} from "rxjs/operators";
-import {BooleanResponse} from "../models/http/BooleanResponse";
 import {Constants} from "../utils/constants";
 
 @Injectable({
@@ -21,8 +20,8 @@ export class NoLoggedUsersGuard implements CanActivate {
     } else {
     // If there is a token, check auth validity
       return this.userService.checkAuth().pipe(
-        map((resp) => {
-          if (resp.response) {
+        map((response) => {
+          if (response.status == Constants.STATUS_SUCCESS) {
             // If server response is true, user is logged in, set authenticated true,
             // => return false (cannot access login page) and redirect to home
             this.userService.authenticated = true;

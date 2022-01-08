@@ -7,10 +7,6 @@ export const environment = {
   apiUrlAuthenticate: "http://localhost:8080/authenticate",
   apiUrlCheckAuth: "http://localhost:8080/check-auth",
   apiUrlLogout: "http://localhost:8080/logout",
-  apiUrlRegister: "http://localhost:8080/register",
-  apiUrlEmailAvailable: "http://localhost:8080/email-available",
-  apiUrlUsernameAvailable: "http://localhost:8080/username-available",
-  apiUrlVerifyAccount: "http://localhost:8080/confirm-registration?token=",
   onlineQrCodeBaseUrl: "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="
 };
 

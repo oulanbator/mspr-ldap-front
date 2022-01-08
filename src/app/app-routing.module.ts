@@ -2,16 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {LoginComponent} from "./components/login/login.component";
 import {RouterModule} from "@angular/router";
-import {RegisterComponent} from "./components/register/register.component";
 import {HomeComponent} from "./components/home/home.component";
 import {OnlyLoggedUsersGuard} from "./guards/OnlyLoggedUsersGuard";
 import {NoLoggedUsersGuard} from "./guards/NoLoggedUsersGuard";
-import {ConfirmRegistrationComponent} from "./components/confirm-registration/confirm-registration.component";
+import { ConfirmTwoFactorsComponent } from './components/confirm-two-factors/confirm-two-factors.component';
 
 const routes = [
   { path: 'login', component: LoginComponent, canActivate: [NoLoggedUsersGuard]},
-  { path: 'register', component: RegisterComponent },
-  { path: 'confirm-registration', component: ConfirmRegistrationComponent},
+  { path: 'activate-account', component: ConfirmTwoFactorsComponent},
   {
     path: 'home',
     component: HomeComponent,

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   passwordFormControl = new FormControl('', [Validators.required]);
   totpFormControl = new FormControl('', [Validators.required]);
 
-  twoFactorEnabled: boolean = false;
+  enterTotp: boolean = false;
   matcher = new customErrorStateMatcher();
 
   constructor(private userService: UserService,
@@ -38,30 +38,40 @@ export class LoginComponent implements OnInit {
     const welcomeMessage = `Login success ! Welcome ${credentials.username}`;
 
     this.userService.authenticate(credentials).subscribe(response => {
-      // Successful login : set auth, keep token, navigate
       if (response.status === Constants.STATUS_SUCCESS) {
-        this.userService.authenticated = true;
-        sessionStorage.setItem(Constants.LOCAL_STORAGE_TOKEN, response.message);
-        this.router.navigate(['/home']);
-        this.snackBar.open(welcomeMessage, 'Dismiss', {duration: 2000});
-      }
-      // Failed login : 2 factors authentication required
-      if (response.status === Constants.STATUS_FAIL) {
-        // If 2FA already enabled => bad PIN
-        if (this.twoFactorEnabled) {
-          this.snackBar.open("Bad PIN. try again !", 'Dismiss', {duration: 2000});
-          this.totpFormControl.setValue('');
-        } else {
+        if (response.message.startsWith('TOTP')) {
+          // Credentials ok : enter TOTP form
           this.snackBar.open(response.message, 'Dismiss', {duration: 2000});
-          this.twoFactorEnabled = true;
+          this.enterTotp = true;
+        } else {
+          // Successful login : 
+          // - set authenticated true, 
+          // - keep jwt token in memory, 
+          // - navigate to home
+          this.userService.authenticated = true;
+          sessionStorage.setItem(Constants.LOCAL_STORAGE_TOKEN, response.message);
+          this.router.navigate(['/home']);
+          this.snackBar.open(welcomeMessage, 'Dismiss', {duration: 2000});
         }
       }
-      // Error in login process : Account disabled or bad credentials
-      if (response.status === Constants.STATUS_ERROR) {
-        if (response.message.startsWith('Inactive')) {
-          // Account is not verified :
+      // Login failed : inactive account needs 2 factor activation
+      if (response.status === Constants.STATUS_FAIL) {
+        // Check if 2FA barCode is actually returned by API
+        const data = response.data;
+        if (data != null && data.length > 0) {
+          this.userService.barCode = data[0].toString();
+          this.userService.credentials = credentials;
           this.snackBar.open(response.message, 'Dismiss', {duration: 2000});
-          this.router.navigate(['/confirm-registration'])
+          this.router.navigate(['/activate-account']);
+        }
+      }
+      // Error in login process : bad TOTP or bad credentials
+      if (response.status === Constants.STATUS_ERROR) {
+        console.log("error");
+        if (response.message.startsWith('Error')) {
+          // TOTP is not valid
+          this.snackBar.open(response.message, 'Dismiss', {duration: 2000});
+          this.totpFormControl.setValue('');
         } else {
           // Bad credentials
           this.snackBar.open(response.message, 'Dismiss', {duration: 2000});
@@ -69,9 +79,5 @@ export class LoginComponent implements OnInit {
       }
     });
 
-  }
-
-  private sendNewConfirmationEmail(username: string) {
-    window.alert("FAKE : an email has been sent to the email address you provide when you signed in !")
   }
 }

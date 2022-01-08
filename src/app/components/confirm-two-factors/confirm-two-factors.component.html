@@ -1,0 +1,79 @@
+<!-- ################################################################################# -->
+<!-- CARD 1 - ACCOUNT NOT ACTIVATED -->
+<!-- ################################################################################# -->
+<mat-card [class.mat-elevation-z8]="true" class="centered-card" *ngIf="!accountActivation && !accountActivated">
+  <!-- Title area -->
+  <mat-card-title class="centered-card-title">Two factors activation</mat-card-title>
+  <mat-card-subtitle>You must activate your account with a time-based code.</mat-card-subtitle>
+  <mat-divider></mat-divider>
+  <br>
+  <!-- Content area -->
+  <div>
+    <p>
+      Please enter the following secret to your Google Authenticator App : <br><br>
+      <strong>{{secret}}</strong>
+    </p>
+    <p>
+      Or flash the following code : <br><br>
+      <img src="{{qrCodeUrl}}" alt="Two factors QR BarCode" />
+    </p>
+  </div>
+  <mat-divider></mat-divider>
+  
+  <!-- Actions area -->
+  <mat-card-actions align="end">
+    <button mat-stroked-button (click)="navActivation()">Next</button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- ################################################################################# -->
+<!-- CARD 2 - ACCOUNT ACTIVATION -->
+<!-- ################################################################################# -->
+<mat-card class="centered-card" [class.mat-elevation-z8]="true" *ngIf="accountActivation">
+  <!-- Title area -->
+  <mat-card-title class="centered-card-title">Two factors activation</mat-card-title>
+  <mat-card-subtitle>Enter your time-based code</mat-card-subtitle>
+  <mat-divider></mat-divider>
+
+  <!-- Content area -->
+  <mat-card-content class="centered-card-content">
+    <form class="login-form">
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>6 digits time-base code (ex. 123456)</mat-label>
+        <input matInput [formControl]="totpFormControl" [errorStateMatcher]="matcher"/>
+        <mat-error *ngIf="totpFormControl.hasError('required')">
+          Your time-based code is <strong>required</strong> in order to activate your account.
+        </mat-error>
+      </mat-form-field>
+
+    </form>
+  </mat-card-content>
+
+  <!-- Actions area -->
+  <mat-card-actions align="end">
+    <button mat-stroked-button
+            color="primary"
+            [disabled]="!totpFormControl.valid"
+            (click)="activate()">
+      Activate my account
+    </button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- ################################################################################# -->
+<!-- CARD 3 - ACCOUNT ACTIVATED -->
+<!-- ################################################################################# -->
+<mat-card [class.mat-elevation-z8]="true" class="centered-card" *ngIf="accountActivated">
+  <div class="mat-display-3">Congratulations !</div>
+
+  <p class="mat-title">
+    Your account has been activated successfully ! <br>
+    You'll be redirected to login in {{secondsRemaining}} seconds...
+  </p>
+  <mat-divider></mat-divider>
+  <mat-card-actions align="end">
+    <button mat-stroked-button (click)="navLogin()">Login</button>
+  </mat-card-actions>
+</mat-card>
+  

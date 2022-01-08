@@ -1,4 +1,4 @@
-<mat-card class="centered-card" [class.mat-elevation-z8]="true" *ngIf="!twoFactorEnabled">
+<mat-card class="centered-card" [class.mat-elevation-z8]="true" *ngIf="!enterTotp">
   <!-- Title area -->
   <mat-card-title class="centered-card-title">Login</mat-card-title>
   <mat-divider></mat-divider>
@@ -22,10 +22,9 @@
           Password is <strong>required</strong>
         </mat-error>
       </mat-form-field>
-
+      
     </form>
   </mat-card-content>
-
   <mat-divider></mat-divider>
 
   <!-- Actions area -->
@@ -37,18 +36,11 @@
       Login
     </button>
   </mat-card-actions>
-
-  <!-- Footer area -->
-  <mat-card-footer>
-<!--    <a [routerLink]="['/register']">Forgot password</a>-->
-    <span class="caption">Forgot password - </span>
-    <a [routerLink]="['/register']" class="caption">Create account</a>
-  </mat-card-footer>
 </mat-card>
 
 
 <!--TWO FACTORS CARD-->
-<mat-card class="centered-card" [class.mat-elevation-z8]="true" *ngIf="twoFactorEnabled">
+<mat-card class="centered-card" [class.mat-elevation-z8]="true" *ngIf="enterTotp">
   <!-- Title area -->
   <mat-card-title class="centered-card-title">Two factors authentication</mat-card-title>
   <mat-card-subtitle>Enter your PIN</mat-card-subtitle>
