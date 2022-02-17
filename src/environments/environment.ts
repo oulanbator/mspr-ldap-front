@@ -1,12 +1,12 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-
+const domain: string = "http://192.168.1.72:8080"
 export const environment = {
   production: false,
-  apiUrlAuthenticate: "http://localhost:8080/authenticate",
-  apiUrlCheckAuth: "http://localhost:8080/check-auth",
-  apiUrlLogout: "http://localhost:8080/logout",
+  apiUrlAuthenticate: domain + "/api/authenticate",
+  apiUrlCheckAuth: domain + "/api/check-auth",
+  apiUrlLogout: domain + "/api/logout",
   onlineQrCodeBaseUrl: "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="
 };
 
