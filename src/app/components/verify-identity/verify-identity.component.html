@@ -1,0 +1,30 @@
+<!-- ################################################################################# -->
+<!-- CARD 1 - ACCOUNT ACTIVATED -->
+<!-- ################################################################################# -->
+<mat-card [class.mat-elevation-z8]="true" class="centered-card" *ngIf="!hasToken">
+  <div class="mat-display-3">Attention !</div>
+
+  <p class="mat-title">
+    Vous ne vous connectez pas depuis votre poste habituel ! <br>
+    Merci de confirmer votre identité en cliquant sur le lien qui vous a été envoyé par mail.
+  </p>
+  <mat-divider></mat-divider>
+  <mat-card-actions align="end">
+        <button mat-stroked-button (click)="navLogin()">Login</button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- ################################################################################# -->
+<!-- CARD 1 - ACCOUNT ACTIVATED -->
+<!-- ################################################################################# -->
+<mat-card [class.mat-elevation-z8]="true" class="centered-card" *ngIf="hasToken">
+  <div class="mat-display-3">Vérification de votre identité</div>
+
+  <p class="mat-title">
+    {{verificationMessage}}
+  </p>
+  <mat-divider></mat-divider>
+  <mat-card-actions align="end">
+    <button mat-stroked-button (click)="navLogin()">Login</button>
+  </mat-card-actions>
+</mat-card>

@@ -11,6 +11,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ConfirmTwoFactorsComponent } from './components/confirm-two-factors/confirm-two-factors.component';
+import { VerifyIdentityComponent } from './components/verify-identity/verify-identity.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ConfirmTwoFactorsComponent } from './components/confirm-two-factors/con
     LoginComponent,
     HomeComponent,
     NavbarComponent,
-    ConfirmTwoFactorsComponent
+    ConfirmTwoFactorsComponent,
+    VerifyIdentityComponent
   ],
   imports: [
     BrowserModule,

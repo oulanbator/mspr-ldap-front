@@ -15,6 +15,7 @@ export class UserService implements OnInit {
   urlAuthenticate: string = environment.apiUrlAuthenticate;
   urlCheckAuth: string = environment.apiUrlCheckAuth;
   urlLogout: string = environment.apiUrlLogout;
+  urlVerifyIdentity: string = environment.apiVerifyIdentity;
 
   authenticated: boolean = false;
   barCode: string = "";
@@ -48,6 +49,11 @@ export class UserService implements OnInit {
 
   logout() {
     return this.http.get<StandardApiResponse>(this.urlLogout, {headers: this.headers});
+  }
+
+  verifyAccount(token: string) {
+    const url: string = this.urlVerifyIdentity + "?token=" + token
+    return this.http.get<StandardApiResponse>(url);
   }
 }
 

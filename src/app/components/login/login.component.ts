@@ -44,9 +44,9 @@ export class LoginComponent implements OnInit {
           this.snackBar.open(response.message, 'Dismiss', {duration: 2000});
           this.enterTotp = true;
         } else {
-          // Successful login : 
-          // - set authenticated true, 
-          // - keep jwt token in memory, 
+          // Successful login :
+          // - set authenticated true,
+          // - keep jwt token in memory,
           // - navigate to home
           this.userService.authenticated = true;
           sessionStorage.setItem(Constants.LOCAL_STORAGE_TOKEN, response.message);
@@ -54,15 +54,23 @@ export class LoginComponent implements OnInit {
           this.snackBar.open(welcomeMessage, 'Dismiss', {duration: 2000});
         }
       }
-      // Login failed : inactive account needs 2 factor activation
+      // Login failed :
       if (response.status === Constants.STATUS_FAIL) {
-        // Check if 2FA barCode is actually returned by API
-        const data = response.data;
-        if (data != null && data.length > 0) {
-          this.userService.barCode = data[0].toString();
-          this.userService.credentials = credentials;
+        // inactive account needs 2 factor activation
+        if (response.message.startsWith('Activation')) {
+          // Check if 2FA barCode is actually returned by API
+          const data = response.data;
+          if (data != null && data.length > 0) {
+            this.userService.barCode = data[0].toString();
+            this.userService.credentials = credentials;
+            this.snackBar.open(response.message, 'Dismiss', {duration: 2000});
+            this.router.navigate(['/activate-account']);
+          }
+        }
+        // Unusual Browser guard
+        if (response.message.startsWith('Suspect Connection')) {
           this.snackBar.open(response.message, 'Dismiss', {duration: 2000});
-          this.router.navigate(['/activate-account']);
+          this.router.navigate(['/verify-identity']);
         }
       }
       // Error in login process : bad TOTP or bad credentials
