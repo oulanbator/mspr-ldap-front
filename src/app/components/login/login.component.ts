@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
           // Credentials ok : enter TOTP form
           this.snackBar.open(response.message, 'Dismiss', {duration: 2000});
           this.enterTotp = true;
+          //this.loading = false;
         } else {
           // Successful login :
           // - set authenticated true,
@@ -54,6 +55,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem(Constants.LOCAL_STORAGE_TOKEN, response.message);
           this.router.navigate(['/home']);
           this.snackBar.open(welcomeMessage, 'Dismiss', {duration: 2000});
+          //this.loading = false;
         }
       }
       // Login failed :
@@ -67,12 +69,14 @@ export class LoginComponent implements OnInit {
             this.userService.credentials = credentials;
             this.snackBar.open(response.message, 'Dismiss', {duration: 2000});
             this.router.navigate(['/activate-account']);
+            //this.loading = false;
           }
         }
         // Unusual Browser guard
         if (response.message.startsWith('Suspect Connection')) {
           this.snackBar.open(response.message, 'Dismiss', {duration: 2000});
           this.router.navigate(['/verify-identity']);
+          //this.loading = false;
         }
       }
       // Error in login process : bad TOTP or bad credentials
@@ -82,14 +86,17 @@ export class LoginComponent implements OnInit {
           // TOTP is not valid
           this.snackBar.open(response.message, 'Dismiss', {duration: 2000});
           this.totpFormControl.setValue('');
+          //this.loading = false;
         } else {
           // Bad credentials
           this.snackBar.open(response.message, 'Dismiss', {duration: 2000});
+          
         }
       }
+      this.loading = false;
     });
 
-    this.loading = false;
+    
 
   }
 }

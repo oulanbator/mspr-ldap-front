@@ -1,7 +1,7 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-const domain: string = "http://127.0.0.1:8080"
+const domain: string = "https://192.168.50.128"
 export const environment = {
   production: false,
   apiUrlAuthenticate: domain + "/api/authenticate",

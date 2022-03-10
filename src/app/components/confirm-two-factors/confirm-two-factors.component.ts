@@ -56,9 +56,9 @@ export class ConfirmTwoFactorsComponent implements OnInit {
   activate() {
     this.loading = true;
     this.credentials.twoFactorsTotp = this.totpFormControl.value;
-    console.log(this.credentials);
+    // console.log(this.credentials);
     this.userService.authenticate(this.credentials!).subscribe(response => {
-      console.log(response);
+      // console.log(response);
       if (response.status === Constants.STATUS_SUCCESS) {
         this.accountActivation = false;
         this.accountActivated = true;
@@ -72,8 +72,9 @@ export class ConfirmTwoFactorsComponent implements OnInit {
       } else {
         this.snackBar.open(response.message, 'Dismiss', {duration: 2000})
       }
+      this.loading = false;
     });
-    this.loading = false;
+    
   }
 
   navLogin() {
