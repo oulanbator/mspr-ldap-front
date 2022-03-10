@@ -19,7 +19,7 @@
     </p>
   </div>
   <mat-divider></mat-divider>
-  
+
   <!-- Actions area -->
   <mat-card-actions align="end">
     <button mat-stroked-button (click)="navActivation()">Next</button>
@@ -41,7 +41,7 @@
 
       <mat-form-field class="full-width" appearance="fill">
         <mat-label>6 digits time-base code (ex. 123456)</mat-label>
-        <input matInput [formControl]="totpFormControl" [errorStateMatcher]="matcher"/>
+        <input matInput [formControl]="totpFormControl" [errorStateMatcher]="matcher"  (keydown.enter)="activate()"/>
         <mat-error *ngIf="totpFormControl.hasError('required')">
           Your time-based code is <strong>required</strong> in order to activate your account.
         </mat-error>
@@ -54,7 +54,7 @@
   <mat-card-actions align="end">
     <button mat-stroked-button
             color="primary"
-            [disabled]="!totpFormControl.valid"
+            [disabled]="!totpFormControl.valid || loading"
             (click)="activate()">
       Activate my account
     </button>
@@ -76,4 +76,4 @@
     <button mat-stroked-button (click)="navLogin()">Login</button>
   </mat-card-actions>
 </mat-card>
-  
+

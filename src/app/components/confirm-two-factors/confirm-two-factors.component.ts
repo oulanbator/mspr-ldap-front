@@ -24,9 +24,10 @@ export class ConfirmTwoFactorsComponent implements OnInit {
   accountActivation: boolean = false;
   accountActivated: boolean = false;
   secondsRemaining: number = 5;
-  
+
   totpFormControl = new FormControl('', [Validators.required]);
   matcher = new customErrorStateMatcher();
+  loading: boolean = false;
 
   constructor(private userService: UserService,
               private router: Router,
@@ -35,7 +36,7 @@ export class ConfirmTwoFactorsComponent implements OnInit {
     // If no barCode in userService, access denied, nav to login
     if (userService.barCode === "" || typeof userService.credentials === null) {
       this.navLogin();
-    } 
+    }
   }
 
   ngOnInit(): void {
@@ -53,6 +54,7 @@ export class ConfirmTwoFactorsComponent implements OnInit {
   }
 
   activate() {
+    this.loading = true;
     this.credentials.twoFactorsTotp = this.totpFormControl.value;
     console.log(this.credentials);
     this.userService.authenticate(this.credentials!).subscribe(response => {
@@ -70,7 +72,8 @@ export class ConfirmTwoFactorsComponent implements OnInit {
       } else {
         this.snackBar.open(response.message, 'Dismiss', {duration: 2000})
       }
-    })
+    });
+    this.loading = false;
   }
 
   navLogin() {

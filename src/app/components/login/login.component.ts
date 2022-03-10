@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   enterTotp: boolean = false;
   matcher = new customErrorStateMatcher();
+  loading: boolean = false;
 
   constructor(private userService: UserService,
               private router: Router,
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.loading = true;
     const credentials: AuthenticationRequest = {
       username: this.usernameFormControl.value,
       password: this.passwordFormControl.value,
@@ -86,6 +88,8 @@ export class LoginComponent implements OnInit {
         }
       }
     });
+
+    this.loading = false;
 
   }
 }
