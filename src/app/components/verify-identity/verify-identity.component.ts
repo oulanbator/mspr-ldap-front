@@ -10,7 +10,7 @@ import {Constants} from "../../utils/constants";
 })
 export class VerifyIdentityComponent implements OnInit {
   hasToken: boolean = false;
-  verificationMessage = "Votre identité n'a pas pu être vérifiée. Le lien que vous avez suivi n'est pas valide."
+  verificationMessage = ""
 
   constructor(private userService: UserService,
               private router: Router,
@@ -19,10 +19,12 @@ export class VerifyIdentityComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       if (params.token) {
-        console.log("Has token param")
-        console.log(params.token)
+        //console.log("Has token param")
+        //console.log(params.token)
         this.verifyToken(params.token);
-        this.hasToken = true
+        this.hasToken = true;
+      } else {
+        this.verificationMessage = "Votre identité n'a pas pu être vérifiée. Le lien que vous avez suivi n'est pas valide.";
       }
     });
   }
